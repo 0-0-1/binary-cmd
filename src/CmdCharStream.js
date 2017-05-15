@@ -46,6 +46,13 @@ const createFromFile = function createFromFile(fileName) {
     lp = 0;
   };
 
+  this.isOpen = () => {
+    if(open === false || (eof === true && rp >= fp)) {
+      return false;
+    }
+    return true;
+  }
+
   let currentChar = null;
 
   // Gotta do this so I don't repeat code for each UTF-8 code block
