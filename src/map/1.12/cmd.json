@@ -1,0 +1,820 @@
+{
+  "advancement": {
+    "args": [{"type": "subcommand", "name": "mode"}],
+    "mode": {
+      "templates": {
+        "grant_revoke": {
+          "args": [{"type": "selector", "name": "player"}, {"type": "subcommand", "name": "length"}],
+          "length": {
+            "templates": {
+              "only_until_from_through": {
+                "args": [{"type": "resource_location", "name": "advancement_to_grant"}, {"type": "string", "name": "criterion"}],
+                "criterion": {
+                  "optional": true
+                }
+              }
+            },
+            "cmds": {
+              "only": {
+                "template": "only_until_from_through"
+              },
+              "until": {
+                "template": "only_until_from_through"
+              },
+              "from": {
+                "template": "only_until_from_through"
+              },
+              "through": {
+                "template": "only_until_from_through"
+              },
+              "everything": {}
+            }
+          }
+        }
+      },
+      "cmds": {
+        "grant": {
+          "template": "grant_revoke"
+        },
+        "revoke": {
+          "template": "grant_revoke"
+        },
+        "test": {
+          "args": [{"type": "selector", "name": "player"}, {"type": "resource_location", "name": "advancement_to_test"}, {"type": "string", "name": "criterion"}],
+          "criterion": {
+            "optional": true
+          }
+        }
+      }
+    }
+  },
+  "blockdata": {
+    "args": [{"type": "coords", "name": "xyz"}, {"type": "nbt", "name": "data_tag"}]
+  },
+  "clear": {
+    "args": [{"type": "selector", "name": "player"}, {"type": "item_resource_location", "name": "item"}, {"type": "item_damage", "name": "data"}, {"type": "integer", "name": "max_count"},
+      {"type": "item_nbt", "name": "data_tag"}],
+    "player": {
+      "optional": true
+    },
+    "item": {
+      "optional": true
+    },
+    "data": {
+      "optional": true
+    },
+    "max_count": {
+      "optional": true
+    },
+    "data_tag": {
+      "optional": true
+    }
+  },
+  "clone": {
+    "args": [{"type": "coords", "name": "xyz1"}, {"type": "coords", "name": "xyz2"}, {"type": "coords", "name": "xyz"}, {"type": "subcommand", "name": "mask_mode"}],
+    "mask_mode": {
+      "optional": true,
+      "templates": {
+        "masked_replace": {
+          "args": [{"type": "enum", "name": "clone_mode"}],
+          "clone_mode": {
+            "optional": true,
+            "values": ["force", "move", "normal"]
+          }
+        }
+      },
+      "cmds": {
+        "filtered": {
+          "args": [{"type": "enum", "name": "clone_mode"}, {"type": "block_resource_location", "name": "tile_name"}, {"type": "block_state", "name": "state"}],
+          "clone_mode": {
+            "values": ["force", "move", "normal"]
+          },
+          "state": {
+            "optional": true
+          }
+        },
+        "masked": {
+          "template": "masked_replace"
+        },
+        "replace": {
+          "template": "masked_replace"
+        }
+      }
+    }
+  },
+  "defaultgamemode": {
+    "args": [{"type": "gamemode", "name": "mode"}]
+  },
+  "difficulty": {
+    "args": [{"type": "difficulty", "name": "difficulty"}]
+  },
+  "effect": {
+    "args": [{"type": "selector", "name": "player"}, {"type": "arg_subcommand", "name": "potion"}],
+    "potion": {
+      "args": [{"type": "enum", "name": "clear"}, {"type": "potion", "name": "potion"}],
+      "clear": {
+        "values": ["clear"]
+      },
+      "potion": {
+        "args": [{"type": "integer", "name": "seconds"}, {"type": "integer", "name": "amplifier"}, {"type": "boolean", "name": "hide_particles"}],
+        "seconds": {
+          "optional": true
+        },
+        "amplifier": {
+          "optional": true
+        },
+        "hide_particles": {
+          "optional": true
+        }
+      }
+    }
+  },
+  "enchant": {
+    "args": [{"type": "selector", "name": "player"}, {"type": "enchantment", "name": "enchantment_id"}, {"type": "integer", "name": "level"}],
+    "level": {
+      "optional": true
+    }
+  },
+  "entitydata": {
+    "args": [{"type": "selector", "name": "entity"}, {"type": "nbt", "name": "data_tag"}]
+  },
+  "execute": {
+    "args": [{"type": "selector", "name": "entity"}, {"type": "coords", "name": "xyz"}, {"type": "arg_subcommand", "name": "execute_mode"}],
+    "execute_mode": {
+      "args": [{"type": "enum", "name": "detect"}, {"type": "execute_subcommand", "name": "command"}],
+      "detect": {
+        "values": ["detect"],
+        "args": [{"type": "coords", "name": "xyz2"}, {"type": "block_resource_location", "name": "block"}, {"type": "block_state", "name": "state"}, {"type": "execute_subcommand", "name": "command"}]
+      }
+    }
+  },
+  "fill": {
+    "args": [{"type": "coords", "name": "xyz1"}, {"type": "coords", "name": "xyz2"}, {"type": "block_resource_location", "name": "block"}, {"type": "block_state", "name": "state"},
+      {"type": "subcommand", "name": "old_block_handling"}],
+    "state": {
+      "optional": true
+    },
+    "old_block_handling": {
+      "optional": true,
+      "templates": {
+        "destroy_hollow_keep_outline": {
+          "args": [{"type": "nbt", "name": "data_tag"}]
+        }
+      },
+      "cmds": {
+        "destroy": {
+          "template": "destroy_hollow_keep_outline"
+        },
+        "hollow": {
+          "template": "destroy_hollow_keep_outline"
+        },
+        "keep": {
+          "template": "destroy_hollow_keep_outline"
+        },
+        "outline": {
+          "template": "destroy_hollow_keep_outline"
+        },
+        "replace": {
+          "args": [{"type": "block_resource_location", "name": "replace_block"}, {"type": "new_block_state", "name": "replace_state"}],
+          "replace_state": {
+            "optional": true
+          }
+        }
+      }
+    }
+  },
+  "gamemode": {
+    "args": [{"type": "gamemode", "name": "mode"}]
+  },
+  "gamerule": {
+    "args": [{"type": "string", "name": "rule"}, {"type": "infinite_string", "name": "value"}]
+  },
+  "give": {
+    "args": [{"type": "selector", "name": "player"}, {"type": "item_resource_location", "name": "item"}, {"type": "integer", "name": "amount"}, {"type": "item_damage", "name": "data"},
+      {"type": "item_nbt", "name": "data_tag"}],
+    "amount": {
+      "optional": true
+    },
+    "data": {
+      "optional": true
+    },
+    "data_tag": {
+      "optional": true
+    }
+  },
+  "help": {
+    "args": [{"type": "string", "name": "search_index"}],
+    "search_index": {
+      "optional": true
+    }
+  },
+  "kill": {
+    "args": [{"type": "selector", "name": "target"}],
+    "target": {
+      "optional": {
+        "warning": "Default target of /kill is @s, meaning that the function will not work properly if not executed off of a player or entity."
+      }
+    }
+  },
+  "list": {
+    "args": [{"type": "enum", "name": "uuid_mode"}],
+    "uuid_mode": {
+      "optional": true,
+      "values": ["uuids"]
+    },
+    "warning": "/list is multiplayer only, meaning that the function might refuse to load in singleplayer worlds, or will not work as intended if it does load."
+  },
+  "locate": {
+    "args": [{"type": "enum", "name": "structure_type"}],
+    "structure_type": {
+      "values": ["EndCity", "Fortress", "Mansion", "Mineshaft", "Monument", "Stronghold", "Temple", "Village"]
+    }
+  },
+  "me": {
+    "args": [{"type": "infinite_string", "action_text"}]
+  },
+  "particle": {
+    "args": [{"type": "particle", "name": "particle"}, {"type": "coords", "name": "xyz"}, {"type": "coords", "name": "xyzd"}, {"type": "number", "name": "speed"},
+      {"type": "integer", "name": "count"}, {"type": "flex_enum", "name": "mode"}, {"type": "selector", "name": "player"}, {"type": "particle_params", "name": "params"}],
+    "count": {
+      "optional": true
+    },
+    "mode": {
+      "optional": true,
+      "values": ["force"]
+    },
+    "player": {
+      "optional": true
+    },
+    "params": {
+      "optional": true
+    }
+  },
+  "playsound": {
+    "args": [{"type": "string", "name": "sound"}, {"type": "enum", "name": "source"}, {"type": "selector", "name": "player"}, {"type": "coords", "name": "xyz"},
+      {"type": "number", "name": "volume"}, {"type": "number", "name": "volume"}, {"type": "number", "name": "minimum_volume"}],
+    "source": {
+      "values": ["master", "music", "record", "weather", "block", "hostile", "neutral", "player", "ambient", "voice"]
+    },
+    "xyz": {
+      "optional": true
+    },
+    "volume": {
+      "optional": true
+    },
+    "pitch": {
+      "optional": true
+    },
+    "minimum_volume": {
+      "optional": true
+    }
+  },
+  "recipe": {
+    "args":[{"type": "enum", "name": "mode"}, {"type": "arg_subcommand", "name": "recipe_arg2"}],
+    "recipe_arg2": {
+      "args": [{"type": "selector", "name": "player"}, {"type": "resource_location", "name": "recipe"}, {"type": "enum", "name": "all_recipes"}],
+      "player": {
+        "args": [{"type": "arg_subcommand", "name": "recipe_arg3"}],
+        "recipe_arg3": {
+          "args": [{"type": "resource_location", "name": "recipe"}, {"type": "enum", "name": "all_recipes"}],
+          "all_recipes": {
+            "values": ["*"]
+          }
+        }
+      },
+      "all_recipes": {
+        "values": ["*"]
+      }
+    }
+  },
+  "replaceitem": {
+    "args": [{"type": "subcommand", "name": "mode"}],
+    "mode": {
+      "cmds": {
+        "block": {
+          "args": [{"type": "coords", "name": "xyz"}, {"type": "string", "name": "slot"}, {"type": "item_resource_location", "name": "item"}, {"type": "integer", "name": "amount"},
+            {"type": "item_damage", "name": "data"}, {"type": "item_nbt", "name": "data_tag"}],
+          "amount": {
+            "optional": true
+          },
+          "data": {
+            "optional": true
+          },
+          "data_tag": {
+            "optional": true
+          }
+        },
+        "entity": {
+          "args": [{"type": "selector", "name": "target"}, {"type": "string", "name": "slot"}, {"type": "item_resource_location", "name": "item"}, {"type": "integer", "name": "amount"},
+            {"type": "item_damage", "name": "data"}, {"type": "item_nbt", "name": "data_tag"}],
+          "amount": {
+            "optional": true
+          },
+          "data": {
+            "optional": true
+          },
+          "data_tag": {
+            "optional": true
+          }
+        }
+      }
+    }
+  },
+  "say": {
+    "args": [{"type": "infinite_string", "name": "broadcast_text"}]
+  },
+  "scoreboard": {
+    "args": [{"type": "subcommand", "name": "mode"}],
+    "mode": {
+      "cmds": {
+        "objectives": {
+          "args": [{"type": "subcommand", "name": "action"}],
+          "action": {
+            "cmds": {
+              "list":{},
+              "add": {
+                "args": [{"type": "string", "name": "name"}, {"type": "string", "name": "criteria"}, {"type": "infinite_string", "name": "display_name"}],
+                "display_name": {
+                  "optional": true
+                }
+              },
+              "remove": {
+                "args": [{"type": "string", "name": "name"}]
+              },
+              "setdisplay": {
+                "args": [{"type": "string", "name": "slot"}, {"type": "string", "name": "name"}],
+                "name": {
+                  "optional": true
+                }
+              }
+            }
+          }
+        },
+        "players": {
+          "args": [{"type": "subcommand", "name": "action"}],
+          "action": {
+            "templates": {
+              "set_add_remove": {
+                "args": [{"type": "string", "name": "player"}, {"type": "string", "name": "objective"}, {"type": "integer", "name": "amount"}, {"type": "nbt", "name": "data_tag"}],
+                "data_tag": {
+                  "optional": true
+                }
+              }
+            },
+            "cmds": {
+              "list": {
+                "args": [{"type": "string", "name": "player_name"}],
+                "player_name": {
+                  "optional": true
+                }
+              },
+              "set": {
+                "template": "set_add_remove"
+              },
+              "add": {
+                "template": "set_add_remove"
+              },
+              "remove": {
+                "template": "set_add_remove"
+              },
+              "reset": {
+                "args": [{"type": "string", "name": "player"}, {"type": "string", "name": "objective"}],
+                "objective": {
+                  "optional": true
+                }
+              },
+              "enable": {
+                "args": [{"type": "string", "name": "player"}, {"type": "string", "name": "trigger"}]
+              },
+              "test": {
+                "args": [{"type": "string", "name": "player"}, {"type": "string", "name": "objective"}, {"type": "integer", "name": "min"}, {"type": "integer", "name": "max"}],
+                "max": {
+                  "optional": true
+                }
+              },
+              "operation": {
+                "args": [{"type": "string", "name": "target_name"}, {"type": "string", "name": "target_objective"}, {"type": "enum", "name": "operation"},
+                  {"type": "string", "name": "other_name"}, {"type": "string", "name": "other_objective"}],
+                "operation": {
+                  "values": ["+=", "-=", "*=", "/=", "%=", "=", "<", ">", "><"]
+                }
+              },
+              "tag": {
+                "args": [{"type": "selector", "name": "player"},{"type": "subcommand", "name": "tag_action"}],
+                "tag_action": {
+                  "templates": {
+                    "add_remove": {
+                      "args": [{"type": "string", "name": "tag_name"}, {"type": "nbt", "name": "data_tag"}],
+                      "data_tag": {
+                        "optional": true
+                      }
+                    }
+                  },
+                  "cmds": {
+                    "add": {
+                      "template": "add_remove"
+                    },
+                    "remove": {
+                      "template": "add_remove"
+                    },
+                    "list": {}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "teams": {
+          "args": [{"type": "subcommand", "name": "action"}],
+          "action": {
+            "templates": {
+              "remove_empty": {
+                "args": [{"type": "string", "name": "name"}]
+              }
+            },
+            "cmds": {
+              "list": {
+                "args": [{"type": "string", "name": "team_name"}],
+                "team_name": {
+                  "optional": true
+                }
+              },
+              "add": {
+                "args": [{"type": "string", "name": "name"}, {"type": "infinite_string", "name": "display_name"}],
+                "display_name": {
+                  "optional": true
+                }
+              },
+              "remove": {
+                "template": "remove_empty"
+              },
+              "empty": {
+                "template": "remove_empty"
+              },
+              "join": {
+                "args": [{"type": "string", "name": "team"}, {"type": "infinite_selector", "name": "players"}],
+                "players": {
+                  "optional": {
+                    "warning": "Default target of /scoreboard teams join is @s, meaning that the function will not work properly if not executed off of a player or entity."
+                  }
+                }
+              },
+              "leave": {
+                "args": [{"type": "infinite_selector", "name": "players"}],
+                "players": {
+                  "optional": {
+                    "warning": "Default target of /scoreboard teams leave is @s, meaning that the function will not work properly if not executed off of a player or entity."
+                  }
+                }
+              },
+              "option": {
+                "args": [{"type": "string", "name": "team"}, {"type": "subcommand", "name": "team_action"}],
+                "team_action": {
+                  "templates": {
+                    "boolean": {
+                      "args": [{"type": "boolean", "name": "setting"}]
+                    },
+                    "team_visibility": {
+                      "args": [{"type": "enum", "name": "setting"}],
+                      "setting": {
+                        "values": ["never", "hideForOtherTeams", "hideForOwnTeam", "always"]
+                      }
+                    }
+                  },
+                  "cmds": {
+                    "color": {
+                      "args": [{"type": "enum", "name": "setting"}],
+                      "setting": {
+                        "values": ["dark_blue", "dark_green", "dark_aqua", "dark_red", "dark_purple", "gold", "gray", "dark_gray", "blue", "green", "aqua",
+                          "red", "light_purple", "yellow", "white", "reset"]
+                      },
+                      "friendlyfire": {
+                        "template": "boolean"
+                      },
+                      "seeFriendlyInvisibles": {
+                        "template": "boolean"
+                      },
+                      "nametagVisibility": {
+                        "template": "team_visibility"
+                      },
+                      "deathMessageVisibility": {
+                        "template": "team_visibility"
+                      },
+                      "collisionRule": {
+                        "args": [{"type": "enum", "name": "setting"}],
+                        "setting": {
+                          "values": ["always", "never", "pushOwnTeam", "pushOtherTeams"]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "seed": {},
+  "setblock": {
+    "args": [{"type": "coords", "name": "xyz"}, {"type": "block_resource_location", "name": "block"}, {"type": "new_block_state", "name": "state"},
+      {"type": "enum", "name": "old_block_handling"}, {"type": "nbt", "name": "data_tag"}],
+    "state": {
+      "optional": true
+    },
+    "old_block_handling": {
+      "optional": true,
+      "values": ["destroy", "keep", "replace"]
+    },
+    "data_tag": {
+      "optional": true
+    }
+  },
+  "setworldspawn": {
+    "args": [{"type": "coords", "name": "xyz"}],
+    "xyz": {
+      "optional": true
+    }
+  },
+  "spawnpoint": {
+    "args": [{"type": "selector", "name": "player"}, {"type": "coords", "name": "xyz"}],
+    "player": {
+      "optional": {
+        "warning": "Default target of /spawnpoint is @s, meaning that the function will not work properly if not executed off of a player or entity."
+      }
+    },
+    "xyz": {
+      "optional": true
+    }
+  },
+  "spreadplayers": {
+    "args": [{"type": "one_coord", "name": "x"}, {"type": "one_coord", "name": "z"}, {"type": "number", "name": "spread_distance"}, {"type": "number", "name": "max_range"},
+      {"type": "boolean", "name": "respect_teams"}, {"type": "infinite_selector", "name": "player"}]
+  },
+  "stats": {
+    "args": [{"type": "subcommand", "name": "mode"}],
+    "mode": {
+      "cmds": {
+        "block": {
+          "args": [{"type": "coords", "name": "xyz"}, {"type": "subcommand", "name": "action"}],
+          "action": {
+            "cmds": {
+              "clear": {
+                "args": [{"type": "enum", "name": "stat"}],
+                "stat": {
+                  "values": ["AffectedBlocks", "AffectedEntities", "AffectedItems", "QueryResult", "SuccessCount"]
+                }
+              },
+              "set": {
+                "args": [{"type": "enum", "name": "stat"}, {"type": "selector", "name": "stat_target"}, {"type": "string", "name": "objective"}],
+                "stat": {
+                  "values": ["AffectedBlocks", "AffectedEntities", "AffectedItems", "QueryResult", "SuccessCount"]
+                }
+              }
+            }
+          }
+        },
+        "entity": {
+          "args": [{"type": "selector", "name": "target"}, {"type": "subcommand", "name": "action"}],
+          "action": {
+            "cmds": {
+              "clear": {
+                "args": [{"type": "enum", "name": "stat"}],
+                "stat": {
+                  "values": ["AffectedBlocks", "AffectedEntities", "AffectedItems", "QueryResult", "SuccessCount"]
+                }
+              },
+              "set": {
+                "args": [{"type": "enum", "name": "stat"}, {"type": "selector", "name": "stat_target"}, {"type": "string", "name": "objective"}],
+                "stat": {
+                  "values": ["AffectedBlocks", "AffectedEntities", "AffectedItems", "QueryResult", "SuccessCount"]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "stopsound": {
+    "args": [{"type": "selector", "name": "player"}, {"type": "enum", "name": "source"}, {"type": "string", "name": "sound"}],
+    "source": {
+      "optional": true,
+      "values": ["master", "music", "record", "weather", "block", "hostile", "neutral", "player", "ambient", "voice"]
+    },
+    "sound": {
+      "optional": true
+    }
+  },
+  "summon": {
+    "args": [{"type": "arg_subcommand", "name": "summon_type"}],
+    "summon_type": {
+      "args": [{"type": "enum_resource_location", "name": "alias"}, {"type": "entity_resource_location", "name": "entity"}],
+      "alias": {
+        "values": [{"domain": "minecraft", "name": "lightning_bolt"}],
+        "args": [{"type": "coords", "name": "xyz"}],
+        "xyz": {
+          "optional": true
+        }
+      },
+      "entity": {
+        "args": [{"type": "coords", "name": "xyz"}, {"type": "nbt", "name": "data_tag"}],
+        "xyz": {
+          "optional": true
+        },
+        "data_tag": {
+          "optional": true
+        }
+      }
+    }
+  },
+  "teleport": {
+    "args": [{"type": "selector", "name": "target"}, {"type": "coords", "name": "xyz"}, {"type": "arg_subcommand", "name": "rotation"}],
+    "rotation": {
+      "optional": true,
+      "args": [{"type": "one_coord", "name": "y_rot"}],
+      "y_rot": {
+        "args": [{"type": "one_coord", "name": "x_rot"}]
+      }
+    }
+  },
+  "tell": {
+    "args": [{"type": "selector", "name": "player"}, {"type": "infinite_string", "name": "message"}]
+  },
+  "w": {
+    "alias": "tell"
+  },
+  "msg": {
+    "alias": "tell"
+  },
+  "tellraw": {
+    "args": [{"type": "selector", "name": "player"}, {"type": "text_component", "name": "message"}]
+  },
+  "testfor": {
+    "args": [{"type": "selector", "name": "player"}, {"type": "nbt", "name": "data_tag"}],
+    "data_tag": {
+      "optional": true
+    }
+  },
+  "testforblock": {
+    "args": [{"type": "coords", "name": "xyz"}, {"type": "block_resource_location", "name": "block"}, {"type": "block_state", "name": "state"}, {"type": "nbt", "name": "data_tag"}],
+    "state": {
+      "optional": true
+    },
+    "data_tag": {
+      "optional": true
+    }
+  },
+  "testforblocks": {
+    "args": [{"type": "coords", "name": "xyz1"}, {"type": "coords", "name": "xyz2"}, {"type": "coords", "name": "xyz"}, {"type": "enum", "name": "mode"}],
+    "mode": {
+      "optional": true,
+      "values": ["all", "masked"]
+    }
+  },
+  "time": {
+    "args": [{"type": "subcommand", "name": "mode"}],
+    "mode": {
+      "templates": {
+        "add_set": {
+          "args": [{"type": "integer", "name": "amount"}]
+        }
+      },
+      "cmds": {
+        "add": {
+          "template": "add_set"
+        },
+        "query": {
+          "args": [{"type": "enum", "name": "time_type"}],
+          "time_type": {
+            "values": ["gametime", "daytime", "day"]
+          }
+        },
+        "set": {
+          "template": "add_set"
+        }
+      }
+    }
+  },
+  "title": {
+    "args": [{"type": "selector", "name": "player"}, {"type": "subcommand", "name": "action"}],
+    "action": {
+      "templates": {
+        "send": {
+          "args": [{"type": "text_component", "name": "title_text"}]
+        }
+      },
+      "cmds": {
+        "clear": {},
+        "reset": {},
+        "title": {
+          "template": "send"
+        },
+        "subtitle": {
+          "template": "send"
+        },
+        "actionbar": {
+          "template": "send"
+        },
+        "times": {
+          "args": [{"type": "integer", "name": "fade_in"}, {"type": "integer", "name": "stay"}, {"type": "integer", "name": "fade_out"}]
+        }
+      }
+    }
+  },
+  "toggledownfall": {},
+  "tp": {
+    "warning": "This command is inconsistent with most other commands that use relative coordinates. Therefore, it is likely that it will be removed or changed in 1.13. If you need /tp's functionality, consider switching to /execute /teleport @s",
+    "args": [{"type": "arg_subcommand", "name": "teleport_arg1"}],
+    "teleport_mode": {
+      "args": [{"type": "selector", "name": "player1"}, {"type": "coords", "name": "xyz"}],
+      "player1": {
+        "args": [{"type": "arg_subcommand", "name": "teleport_arg2"}],
+        "teleport_arg2": {
+          "optional": true,
+          "args": [{"type": "selector", "name": "player2"}, {"type": "coords", "name": "xyz"}],
+          "xyz": {
+            "args": [{"type": "arg_subcommand", "name": "rotation"}],
+            "rotation": {
+              "optional": true,
+              "args": [{"type": "one_coord", "name": "y_rot"}],
+              "y_rot": {
+                "args": [{"type": "one_coord", "name": "x_rot"}]
+              }
+            }
+          }
+        }
+      },
+      "xyz": {
+        "args": [{"type": "arg_subcommand", "name": "rotation"}],
+        "rotation": {
+          "optional": true,
+          "args": [{"type": "one_coord", "name": "y_rot"}],
+          "y_rot": {
+            "args": [{"type": "one_coord", "name": "x_rot"}]
+          }
+        }
+      }
+    }
+  },
+  "trigger": {
+    "warning": "This fails for system functions and entities, and only works on players. Even when it does work, it's better to use /scoreboard players set|add or /scoreboard players tag.",
+    "args": [{"type": "string", "name": "objective"}, {"type": "enum", "name": "action"}, {"type": "integer", "name": "value"}],
+    "action": {
+      "values": ["add", "set"]
+    }
+  },
+  "weather": {
+    "args": [{"type": "enum", "name": "status"}, {"type": "integer", "name": "duration"}],
+    "status": {
+      "values": ["clear", "rain", "thunder"]
+    },
+    "duration": {
+      "optional": true
+    }
+  },
+  "worldborder": {
+    "args": [{"type": "subcommand", "name": "mode"}],
+    "mode": {
+      "templates": {
+        "add_set": {
+          "args": [{"type": "number", "name": "distance"}, {"type": "number", "name": "time"}],
+          "time": {
+            "optional": true
+          }
+        }
+      },
+      "cmds": {
+        "add": {
+          "template": "add_set"
+        },
+        "center": {
+          "args": [{"type": "one_coord", "name": "x"}, {"type": "one_coord", "name": "y"}]
+        },
+        "damage": {
+          "args": [{"type": "enum", "name": "damage_mode"}, {"type": "number", "name": "value"}],
+          "damage_mode": {
+            "values": ["amount", "buffer"]
+          }
+        },
+        "get": {},
+        "set": {
+          "template": "add_set"
+        },
+        "warning": {
+          "args": [{"type": "enum", "name": "warning_mode"}, {"type": "number", "name": "value"}],
+          "warning_mode": {
+            "values": ["distance", "time"]
+          }
+        }
+      }
+    }
+  },
+  "xp": {
+    "args": [{"type": "xp", "name": "amount"}, {"type": "selector", "name": "player"}],
+    "player": {
+      "optional": true
+    }
+  }
+}

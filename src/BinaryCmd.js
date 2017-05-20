@@ -1,6 +1,4 @@
+/*! binary-cmd v0.0.1 | (c) 0-0-1 and other contributors | See LICENSE file */
 "use strict";
 
-// In case this file is being used without being preprocessed.
-/* IGNORE */ const __require = require;
-
-const CmdLexer = __require("./CmdLexer.js");
+const CmdLexer = require("./CmdLexer.js");

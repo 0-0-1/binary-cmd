@@ -1,3 +1,4 @@
+/* binary-cmd v0.0.1 | (c) 0-0-1 and other contributors | See LICENSE file */
 "use strict";
 
 const fs = require('fs');
@@ -164,6 +165,10 @@ const createFromString = function createFromString(str) {
 
   let currentChar = null;
 
+  this.isOpen = () => {
+    return open;
+  }
+
   // Retrieves current character.
   this.peek = () => {
     if(currentChar !== null) {
@@ -171,9 +176,11 @@ const createFromString = function createFromString(str) {
     }
     if(rp >= fp) {
       currentChar = CmdCharStream.EOF;
+      open = false;
       return currentChar;
     }
     currentChar = str[rp];
+    rp++;
     return currentChar;
   };
 
